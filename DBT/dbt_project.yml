@@ -22,11 +22,11 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-on-run-start:
-  - "CREATE TABLE IF NOT EXISTS {{ target.schema }}.audit_log (
-      model_name STRING,
-      run_timestamp TIMESTAMP
-    )"
+# on-run-start:
+#   - "CREATE TABLE IF NOT EXISTS {{ target.schema }}.audit_log (
+#       model_name STRING,
+#       run_timestamp TIMESTAMP
+#     )"
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -37,10 +37,10 @@ on-run-start:
 models:
   DBT:
     # Config indicated by + and applies to all files under models/example/
-    +grants:
-      select: ["transformer", "reporter"]
-    +post-hook:
-      - "INSERT INTO {{ target.schema }}.audit_log VALUES ('{{ this }}', CURRENT_TIMESTAMP)"
+    # +grants:
+    #   select: ["transformer", "reporter"]
+    # +post-hook:
+    #   - "INSERT INTO {{ target.schema }}.audit_log VALUES ('{{ this }}', CURRENT_TIMESTAMP)"
     src:
       +materialized: view
     cleansed:
